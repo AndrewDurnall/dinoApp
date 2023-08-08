@@ -1,0 +1,89 @@
+﻿@page "/searchDinos"
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@inject IHttpClientFactory ClientFactory
+
+<h1>Search The Dino's</h1>
+<div>
+    <input type="text" @bind="@searchQuery" />
+    <button class="btn btn-primary" @onclick="FilterDinosaurs">Search</button>
+</div>
+
+@if (getDataError)
+{
+    <p>Unable to get data from the API. Please try again later.</p>
+}
+else if (string.IsNullOrWhiteSpace(searchQuery))
+{
+    <p>Please enter a search query.</p>
+}
+else if (filteredDinosaurs == null)
+{
+    <p>No matching dinosaurs found.</p>
+}
+else
+{
+    <ul>
+        @foreach (var data in filteredDinosaurs)
+        {
+            <li>
+                <strong>Name:</strong> @data.Name<br />
+                <strong>Description:</strong> @data.Description<br />
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    private List<YourApiData> apiData;
+    private List<YourApiData> filteredDinosaurs;
+    private bool getDataError;
+    private bool isDataLoaded;
+    private string searchQuery;
+
+    private async Task LoadData()
+    {
+        try
+        {
+            var apiUrl = "https://dinosaur-facts-api.shultzlab.com/dinosaurs";
+            var client = ClientFactory.CreateClient();
+
+            var response = await client.GetStreamAsync(apiUrl);
+            apiData = await JsonSerializer.DeserializeAsync<List<YourApiData>>(response);
+            isDataLoaded = true;
+            getDataError = false;
+        }
+        catch (Exception)
+        {
+            getDataError = true;
+        }
+    }
+
+    private void FilterDinosaurs()
+    {
+        if (!isDataLoaded)
+        {
+            LoadData();
+        }
+
+        if (!string.IsNullOrWhiteSpace(searchQuery))
+        {
+            filteredDinosaurs = apiData
+                .Where(d => d.Name.Contains(searchQuery, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
+        else
+        {
+            filteredDinosaurs = null;
+        }
+    }
+
+    public class YourApiData
+    {
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        [JsonPropertyName("Description")]
+        public string Description { get; set; }
+    }
+}

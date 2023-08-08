@@ -3,7 +3,7 @@
 @using System.Text.Json.Serialization
 @inject IHttpClientFactory ClientFactory
 
-<h1>Do you like Dinosaurs?</h1>
+<h1>Random Dino!</h1>
 <button class="btn btn-primary" style="margin-bottom:10px" @onclick="GetApiData">Get Random Dinosaur</button>
 
 @if (getDataError || apiData is null)
