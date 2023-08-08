@@ -1,0 +1,8 @@
+C:\Users\shark\OneDrive\Documents\.Net Tutorials\counter\counter\counter\obj\Debug\net7.0\DinoAppFiles.csproj.AssemblyReference.cache
+C:\Users\shark\OneDrive\Documents\.Net Tutorials\counter\counter\counter\obj\Debug\net7.0\DinoAppFiles.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\shark\OneDrive\Documents\.Net Tutorials\counter\counter\counter\obj\Debug\net7.0\DinoAppFiles.AssemblyInfoInputs.cache
+C:\Users\shark\OneDrive\Documents\.Net Tutorials\counter\counter\counter\obj\Debug\net7.0\DinoAppFiles.AssemblyInfo.cs
+C:\Users\shark\OneDrive\Documents\.Net Tutorials\counter\counter\counter\obj\Debug\net7.0\DinoAppFiles.csproj.CoreCompileInputs.cache
+C:\Users\shark\OneDrive\Documents\.Net Tutorials\counter\counter\counter\obj\Debug\net7.0\DinoAppFiles.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\shark\OneDrive\Documents\.Net Tutorials\counter\counter\counter\obj\Debug\net7.0\DinoAppFiles.RazorAssemblyInfo.cache
+C:\Users\shark\OneDrive\Documents\.Net Tutorials\counter\counter\counter\obj\Debug\net7.0\DinoAppFiles.RazorAssemblyInfo.cs

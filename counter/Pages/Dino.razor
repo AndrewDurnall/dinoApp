@@ -1,0 +1,56 @@
+﻿@page "/randomDino"
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@inject IHttpClientFactory ClientFactory
+
+<h1>Do you like Dinosaurs?</h1>
+<button class="btn btn-primary" @onclick="GetApiData">Get Random Dinosaur</button>
+
+@if (getDataError || apiData is null)
+{
+    <p>No Dinosaur Details</p>
+}
+else
+{
+    <ul>
+        @foreach (var data in apiData)
+        {
+            <li>
+                <strong>Name:</strong> @data.Name<br />
+                <strong>Description:</strong> @data.Description<br />
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    private IEnumerable<YourApiData> apiData;
+    private bool getDataError;
+
+private async Task GetApiData()
+{
+    try
+    {
+        var apiUrl = "https://dinosaur-facts-api.shultzlab.com/dinosaurs/random";
+        var client = ClientFactory.CreateClient();
+
+        var response = await client.GetStreamAsync(apiUrl);
+        var apiObject = await JsonSerializer.DeserializeAsync<YourApiData>(response);
+        apiData = new List<YourApiData> { apiObject };
+        getDataError = false;
+    }
+    catch (Exception)
+    {
+        getDataError = true;
+    }
+}
+
+    public class YourApiData
+    {
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        [JsonPropertyName("Description")]
+        public string Description { get; set; }
+    }
+}
