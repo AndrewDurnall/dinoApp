@@ -3,10 +3,10 @@
 @using System.Text.Json.Serialization
 @inject IHttpClientFactory ClientFactory
 
-<h1>Search The Dino's</h1>
+<h1>Search the Dino's</h1>
 <div>
     <input type="text" @bind="@searchQuery" />
-    <button class="btn btn-primary" @onclick="FilterDinosaurs">Search</button>
+    <button class="btn btn-primary" style="margin: 10px 0px 10px 0px" @onclick="FilterDinosaurs">Search The Dino's</button>
 </div>
 
 @if (getDataError)
@@ -15,12 +15,9 @@
 }
 else if (string.IsNullOrWhiteSpace(searchQuery))
 {
-    <p>Please enter a search query.</p>
+    <p>The search wont work without letters....</p>
 }
-else if (filteredDinosaurs == null)
-{
-    <p>No matching dinosaurs found.</p>
-}
+
 else
 {
     <ul>
@@ -35,7 +32,7 @@ else
 }
 
 @code {
-    private List<YourApiData> apiData;
+    private List<YourApiData> apiData = new List<YourApiData>(); 
     private List<YourApiData> filteredDinosaurs;
     private bool getDataError;
     private bool isDataLoaded;
@@ -59,24 +56,31 @@ else
         }
     }
 
-    private void FilterDinosaurs()
+    private async Task FilterDinosaurs()
     {
-        if (!isDataLoaded)
-        {
-            LoadData();
-        }
+        await LoadData(); // Ensure data is loaded before filtering
 
         if (!string.IsNullOrWhiteSpace(searchQuery))
         {
-            filteredDinosaurs = apiData
-                .Where(d => d.Name.Contains(searchQuery, StringComparison.OrdinalIgnoreCase))
-                .ToList();
+            if (filteredDinosaurs == null || filteredDinosaurs.Count == 0)
+            {
+                filteredDinosaurs = apiData
+                    .Where(d => d.Name.Contains(searchQuery, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+            else
+            {
+                filteredDinosaurs = apiData
+                    .Where(d => d.Name.Contains(searchQuery, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
         }
         else
         {
             filteredDinosaurs = null;
         }
     }
+
 
     public class YourApiData
     {
