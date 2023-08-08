@@ -6,7 +6,7 @@
 <h1>Search the Dino's</h1>
 <div>
     <input type="text" @bind="@searchQuery" />
-    <button class="btn btn-primary" style="margin: 10px 0px 10px 0px" @onclick="FilterDinosaurs">Search The Dino's</button>
+    <button class="btn btn-primary" style="margin:10px 0px 10px 0px" @onclick="FilterDinosaurs">Search The Dino's</button>
 </div>
 
 @if (getDataError)
@@ -15,18 +15,22 @@
 }
 else if (string.IsNullOrWhiteSpace(searchQuery))
 {
-    <p>The search wont work without letters....</p>
+    <p>Enter Search Criteria....</p>
 }
-
+else if (filteredDinosaurs == null)
+{
+    <p>Searching......</p>
+}
 else
 {
-    <ul>
+    <ul style="padding:0">
         @foreach (var data in filteredDinosaurs)
         {
-            <li>
+            <li style="margin:5px 0px 5px 0px; list-style-type:none">
                 <strong>Name:</strong> @data.Name<br />
                 <strong>Description:</strong> @data.Description<br />
             </li>
+            <br>
         }
     </ul>
 }
@@ -58,7 +62,7 @@ else
 
     private async Task FilterDinosaurs()
     {
-        await LoadData(); // Ensure data is loaded before filtering
+        await LoadData();
 
         if (!string.IsNullOrWhiteSpace(searchQuery))
         {

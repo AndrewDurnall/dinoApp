@@ -12,13 +12,14 @@
 }
 else
 {
-    <ul>
+    <ul style="padding: 2px">
         @foreach (var data in apiData)
         {
-            <li>
+            <li style="margin:5px 0px 5px 0px; list-style-type:none">
                 <strong>Name:</strong> @data.Name<br />
                 <strong>Description:</strong> @data.Description<br />
             </li>
+            <br>
         }
     </ul>
 }
