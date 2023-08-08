@@ -1,21 +1,55 @@
 ﻿@page "/allDinos"
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@inject IHttpClientFactory ClientFactory
 
-<PageTitle>Counter</PageTitle>
+<h1>All the Dino's'</h1>
+<button class="btn btn-primary" style="margin-bottom:10px" @onclick="GetApiData">Get ALL DINO'S'</button>
 
-<h1>All Dinos</h1>
-
-<p>Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+@if (getDataError || apiData is null)
+{
+    <p>Press the Button......</p>
+}
+else
+{
+    <ul>
+        @foreach (var data in apiData)
+        {
+            <li>
+                <strong>Name:</strong> @data.Name<br />
+                <strong>Description:</strong> @data.Description<br />
+            </li>
+        }
+    </ul>
+}
 
 @code {
-    private int currentCount = 0;
+    private List<YourApiData> apiData;
+    private bool getDataError;
 
-    [Parameter]
-    public int IncrementAmount { get; set; } = 1;
-
-    private void IncrementCount()
+    private async Task GetApiData()
     {
-        currentCount += IncrementAmount;
+        try
+        {
+            var apiUrl = "https://dinosaur-facts-api.shultzlab.com/dinosaurs";
+            var client = ClientFactory.CreateClient();
+
+            var response = await client.GetStreamAsync(apiUrl);
+            apiData = await JsonSerializer.DeserializeAsync<List<YourApiData>>(response);
+            getDataError = false;
+        }
+        catch (Exception)
+        {
+            getDataError = true;
+        }
+    }
+
+    public class YourApiData
+    {
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        [JsonPropertyName("Description")]
+        public string Description { get; set; }
     }
 }
