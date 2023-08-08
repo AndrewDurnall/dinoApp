@@ -53,6 +53,10 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "C:\\Users\\shark\\OneDrive\\Documents\\.Net Tutorials\\dinoApp\\counter\\wwwroot\\dino.jpg",
+      "PackagePath": "staticwebassets\\dino.jpg"
+    },
+    {
       "Id": "C:\\Users\\shark\\OneDrive\\Documents\\.Net Tutorials\\dinoApp\\counter\\wwwroot\\favicon.png",
       "PackagePath": "staticwebassets\\favicon.png"
     },
