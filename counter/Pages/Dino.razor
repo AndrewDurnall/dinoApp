@@ -24,7 +24,7 @@ else
 }
 
 @code {
-    private IEnumerable<YourApiData> apiData;
+    private IEnumerable<DinoApiData> apiData;
     private bool getDataError;
 
 private async Task GetApiData()
@@ -35,8 +35,8 @@ private async Task GetApiData()
         var client = ClientFactory.CreateClient();
 
         var response = await client.GetStreamAsync(apiUrl);
-        var apiObject = await JsonSerializer.DeserializeAsync<YourApiData>(response);
-        apiData = new List<YourApiData> { apiObject };
+            var apiObject = await JsonSerializer.DeserializeAsync<DinoApiData>(response);
+            apiData = new List<DinoApiData> { apiObject };
         getDataError = false;
     }
     catch (Exception)
@@ -45,7 +45,7 @@ private async Task GetApiData()
     }
 }
 
-    public class YourApiData
+    public class DinoApiData
     {
         [JsonPropertyName("Name")]
         public string Name { get; set; }

@@ -36,8 +36,8 @@ else
 }
 
 @code {
-    private List<YourApiData> apiData = new List<YourApiData>(); 
-    private List<YourApiData> filteredDinosaurs;
+    private List<DinoApiData> apiData = new List<DinoApiData>();
+    private List<DinoApiData> filteredDinosaurs;
     private bool getDataError;
     private bool isDataLoaded;
     private string searchQuery;
@@ -50,7 +50,7 @@ else
             var client = ClientFactory.CreateClient();
 
             var response = await client.GetStreamAsync(apiUrl);
-            apiData = await JsonSerializer.DeserializeAsync<List<YourApiData>>(response);
+            apiData = await JsonSerializer.DeserializeAsync<List<DinoApiData>>(response);
             isDataLoaded = true;
             getDataError = false;
         }
@@ -86,7 +86,7 @@ else
     }
 
 
-    public class YourApiData
+    public class DinoApiData
     {
         [JsonPropertyName("Name")]
         public string Name { get; set; }

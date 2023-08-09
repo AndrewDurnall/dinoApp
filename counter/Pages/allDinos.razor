@@ -25,7 +25,7 @@ else
 }
 
 @code {
-    private List<YourApiData> apiData;
+    private List<DinoApiData> apiData;
     private bool getDataError;
 
     private async Task GetApiData()
@@ -36,7 +36,7 @@ else
             var client = ClientFactory.CreateClient();
 
             var response = await client.GetStreamAsync(apiUrl);
-            apiData = await JsonSerializer.DeserializeAsync<List<YourApiData>>(response);
+            apiData = await JsonSerializer.DeserializeAsync<List<DinoApiData>>(response);
             getDataError = false;
         }
         catch (Exception)
@@ -45,7 +45,7 @@ else
         }
     }
 
-    public class YourApiData
+    public class DinoApiData
     {
         [JsonPropertyName("Name")]
         public string Name { get; set; }
